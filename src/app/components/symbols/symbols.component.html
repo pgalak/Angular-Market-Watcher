@@ -1,0 +1,33 @@
+<div class="container">
+  <form>
+    <div class="row">
+      <div class="form-group form-inline">
+        Full text search: <input type="text" class="form-control ml-2" name="searchTerm" [(ngModel)]="dataService.searchTerm">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Symbol</th>
+              <th scope="col">Description</th>
+              <th scope="col">Currency</th>
+              <th scope="col">Stock Exchange</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of shares$ | async" style="cursor: pointer;">
+              <td><ngb-highlight [result]="data.Symbol" [term]="dataService.searchTerm"></ngb-highlight></td>
+              <td><ngb-highlight [result]="data.Name" [term]="dataService.searchTerm"></ngb-highlight></td>
+              <td>{{ data.Currency }}</td>
+              <td>{{ data["StockExchangeLong"] }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-lg-1"></div>
+      <div class="lg-1"><app-watchlist></app-watchlist></div>
+    </div>
+  </form>
+</div>
