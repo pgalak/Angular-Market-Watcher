@@ -1,9 +1,19 @@
 table{ width: 100%;}
 thead, tbody { display: block;}
-tbody td, thead th { width: 20%;}
+tbody td { width: 20%;}
+thead th { width: 19%;}
 
 tbody {
   height: 530px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.table tr.active td {
+  background-color:#5bc0de !important;
+}
+
+.searchBar {
+  padding-right: 15px;
+  padding-left: 15px;
 }

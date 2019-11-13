@@ -14,8 +14,13 @@ import { Share } from '../../share';
 })
 export class SymbolsComponent {
   shares$: Observable<Share[]>;
+  selectedRow: number;
 
   constructor(public dataService: DataService) {
     this.shares$ = dataService.shares$
+  }
+
+  setSelectedRow(index: number) {
+    this.selectedRow = index;
   }
 }

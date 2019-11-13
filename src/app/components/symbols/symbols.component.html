@@ -1,13 +1,11 @@
 <div class="container">
   <form>
-    <div class="row">
-      <div class="form-group form-inline">
-        Full text search: <input type="text" class="form-control ml-2" name="searchTerm" [(ngModel)]="dataService.searchTerm">
-      </div>
+    <div class="row form-group form-inline searchBar">
+      <h5>Search by <code>Symbol</code> or <code>Description</code>: <input type="text" class="form-control ml-2" name="searchTerm" [(ngModel)]="dataService.searchTerm"></h5> <h2>ΦΤΙΑΞΕ ΤΑ ΚΟΥΜΠΙΑ ΒΛΑΚΑ</h2>
     </div>
     <div class="row">
       <div class="col-lg-8">
-        <table class="table table-striped">
+        <table class="table table-bordered table-hover">
           <thead>
             <tr>
               <th scope="col">Symbol</th>
@@ -17,17 +15,30 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let data of shares$ | async" style="cursor: pointer;">
-              <td><ngb-highlight [result]="data.Symbol" [term]="dataService.searchTerm"></ngb-highlight></td>
-              <td><ngb-highlight [result]="data.Name" [term]="dataService.searchTerm"></ngb-highlight></td>
+            <tr 
+              *ngFor="let data of (shares$ | async); let i = index " 
+              style="cursor: pointer;" 
+              [class.active]="i === selectedRow" 
+              (click)="setSelectedRow(i)">
+              <td>
+                <ngb-highlight [result]="data.Symbol" 
+                [term]="dataService.searchTerm"></ngb-highlight>
+              </td>
+
+              <td>
+                <ngb-highlight [result]="data.Name" 
+                [term]="dataService.searchTerm"></ngb-highlight>
+              </td>
+
               <td>{{ data.Currency }}</td>
+
               <td>{{ data["StockExchangeLong"] }}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="col-lg-1"></div>
-      <div class="lg-1"><app-watchlist></app-watchlist></div>
+      <!-- <div class="col-lg-1"></div> -->
+      <div class="col-lg-4"><app-watchlist></app-watchlist></div>
     </div>
   </form>
 </div>
