@@ -20,7 +20,8 @@ export class SymbolsComponent {
   isShareSelected: boolean = false;
 
   constructor(public dataService: DataService,
-              private watchlistService: WatchlistService) {
+              private watchlistService: WatchlistService) 
+  {
     this.shares$ = dataService.shares$
   }
 
@@ -34,8 +35,14 @@ export class SymbolsComponent {
     const newSymbol: Symbol = {
       symbol: this.selectedSymbol
     }
-    console.log(newSymbol);
-    
     this.watchlistService.addSymbol(newSymbol);
+  }
+
+  onDelete() {
+
+  }
+
+  onSave() {
+    this.watchlistService.saveWatchlist();
   }
 }

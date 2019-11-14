@@ -14,8 +14,6 @@ export class WatchlistService {
   }
 
   getWatchlist(): Observable<Symbol[]> {
-    console.log(JSON.parse(localStorage.getItem('symbols')));
-    
     if(localStorage.getItem('symbols') === null) {
       this.symbols = [];
     } else {
@@ -26,11 +24,10 @@ export class WatchlistService {
   }
 
   addSymbol(symbol: Symbol) {
-    console.log(this.symbols);
-    
     this.symbols.push(symbol);
-
-    localStorage.setItem('symbols', JSON.stringify(this.symbols));
   }
 
+  saveWatchlist() {
+    localStorage.setItem('symbols', JSON.stringify(this.symbols));
+  }
 }
