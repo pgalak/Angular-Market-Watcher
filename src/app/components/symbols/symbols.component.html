@@ -11,7 +11,7 @@
           [(ngModel)]="dataService.searchTerm"></h5>
       </div>
       <div class="col-lg-2">
-        <button class="btn btn-primary">+ Add to watch list</button>
+        <button class="btn btn-primary" (click)="onAdd()" [disabled]="!this.isShareSelected">+ Add to watch list</button>
       </div> 
       <div class="col-lg-1">
           <button type="button" class="btn btn-danger">Remove</button>
@@ -37,7 +37,7 @@
               *ngFor="let data of (shares$ | async); let i = index " 
               style="cursor: pointer;" 
               [class.active]="i === selectedRow" 
-              (click)="setSelectedRow(i)">
+              (click)="onSelectedRow(i, data.Symbol)">
               <td>
                 <ngb-highlight [result]="data.Symbol" 
                 [term]="dataService.searchTerm"></ngb-highlight>

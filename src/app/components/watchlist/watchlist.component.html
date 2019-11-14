@@ -5,30 +5,15 @@
     </tr>
     </thead>
     <tbody>
-      <tr><th><h5>AAPL</h5></th></tr>
-      <tr><th><h5>HSBA.L</h5></th></tr>
-      <tr><th><h5>MSFT</h5></th></tr>
-      <tr><th><h5>NFLX</h5></th></tr>
-      <tr><th><h5>MIG</h5></th></tr>
+      <tr *ngFor="let symbol of watchlist">
+        <th><h5>{{ symbol }}</h5></th>
+      </tr>
     </tbody>
   </table>
 
-  <!-- <table class="table table-striped">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Country</th>
-      <th scope="col">Area</th>
-      <th scope="col">Population</th>
-    </tr>
-    </thead>
-    <tbody>
+    <!-- <tbody>
     <tr *ngFor="let country of countries; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>
-        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
-        {{ country.name }}
-      </td>
       <td>{{ country.area | number }}</td>
       <td>{{ country.population | number }}</td>
     </tr>

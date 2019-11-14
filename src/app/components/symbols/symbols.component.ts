@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { DataService } from 'src/app/data.service';
 import { Share } from '../../share';
+import { WatchlistService, Symbol } from '../watchlist/watchlist.service';
 
 @Component({
   selector: 'app-symbols',
@@ -15,12 +16,26 @@ import { Share } from '../../share';
 export class SymbolsComponent {
   shares$: Observable<Share[]>;
   selectedRow: number;
+  selectedSymbol: string = '';
+  isShareSelected: boolean = false;
 
-  constructor(public dataService: DataService) {
+  constructor(public dataService: DataService,
+              private watchlistService: WatchlistService) {
     this.shares$ = dataService.shares$
   }
 
-  setSelectedRow(index: number) {
+  onSelectedRow(index: number, symbol: string) {
     this.selectedRow = index;
+    this.selectedSymbol = symbol;
+    this.isShareSelected = true;
+  }
+
+  onAdd() {
+    const newSymbol: Symbol = {
+      symbol: this.selectedSymbol
+    }
+    console.log(newSymbol);
+    
+    this.watchlistService.addSymbol(newSymbol);
   }
 }
