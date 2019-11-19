@@ -3,31 +3,33 @@
     <div class="row form-group form-inline searchBar">
       <div class="col-lg-8 form-group form-inline searchBar">
         <h5>Search by <code>SYMBOL</code> or <code>DESCRIPTION</code>: 
-        <input 
-          type="search" 
-          placeholder="Search" 
-          class="form-control ml-2" 
-          name="searchTerm" 
-          [(ngModel)]="dataService.searchTerm"></h5>
+          <!-- <input 
+            type="search" 
+            placeholder="Search" 
+            class="form-control ml-2" 
+            name="searchTerm" 
+            [(ngModel)]="dataService.searchTerm"> -->
+          <input id="search-box" #searchBox (input)="search(searchBox.value)">
+        </h5>
       </div>
       <div class="col-lg-2">
         <button 
           class="btn btn-primary" 
           (click)="onAdd()" 
           [disabled]="!this.isShareSelected" 
-          [ngClass]="{'not-allowed': !this.isShareSelected}">+ Add to watch list</button>
+          [ngClass]="{'not-allowed': !this.isShareSelected }">+ Add to watch list</button>
       </div> 
       <div class="col-lg-1">
-          <button 
-            class="btn btn-danger"
-            (click)="onDelete()"
-            [disabled]="!this.isSymbolSelected"
-            [ngClass]="{'not-allowed': !this.isSymbolSelected}">Remove</button>
+        <button 
+          class="btn btn-danger"
+          (click)="onDelete()"
+          [disabled]="!this.watchListSelectedRow.isSelected"
+          [ngClass]="{'not-allowed': !this.watchListSelectedRow.isSelected}">Remove</button>
       </div> 
       <div class="col-lg-1">
-          <button 
-            class="btn btn-success"
-            (click)="onSave()">Save</button>
+        <button 
+          class="btn btn-success"
+          (click)="onSave()">Save</button>
       </div> 
       
     </div>
@@ -48,16 +50,17 @@
               style="cursor: pointer;" 
               [class.active]="i === selectedRow" 
               (click)="onSelectedRow(i, data.Symbol)">
-              <td>
+              <!-- <td>
                 <ngb-highlight [result]="data.Symbol" 
                 [term]="dataService.searchTerm"></ngb-highlight>
               </td>
-
+              
               <td>
                 <ngb-highlight [result]="data.Name" 
                 [term]="dataService.searchTerm"></ngb-highlight>
-              </td>
-
+              </td> -->
+              <td>{{data.Symbol}}</td>
+              <td>{{data.Name}}</td>
               <td>{{ data.Currency }}</td>
 
               <td>{{ data["StockExchangeLong"] }}</td>
@@ -65,7 +68,9 @@
           </tbody>
         </table>
       </div>
-      <div class="col-lg-4"><app-watchlist></app-watchlist></div>
+      <div class="col-lg-4">
+        <app-watchlist></app-watchlist>
+      </div>
     </div>
   </form>
 </div>

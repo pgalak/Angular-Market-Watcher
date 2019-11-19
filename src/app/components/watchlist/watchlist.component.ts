@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WatchlistService, Symbol } from './watchlist.service';
+
+import { WatchlistService, Symbol, Row } from './watchlist.service';
 
 @Component({
   selector: 'app-watchlist',
@@ -8,11 +9,16 @@ import { WatchlistService, Symbol } from './watchlist.service';
 })
 export class WatchlistComponent implements OnInit {
   watchlist: Symbol[];
-  selectedRow: number;
-  selectedSymbol: string = '';
-  isSymbolSelected: boolean = false;
+  public row: Row = {
+    id: null,
+    symbol: '',
+    isSelected: false
+  }
 
-  constructor(private watchlistService: WatchlistService) { }
+  constructor(
+    private watchlistService: WatchlistService,
+
+  ) { }
 
   ngOnInit() {
     this.watchlistService.getWatchlist().subscribe(watchlist => {
@@ -21,10 +27,10 @@ export class WatchlistComponent implements OnInit {
   }
 
   onSelectedRow(index: number, symbol: string) {
-    this.selectedRow = index;
-    this.selectedSymbol = symbol;
-    this.isSymbolSelected = true;
-    console.log(symbol);
+    this.row.id = index;
+    this.row.symbol = symbol;
+    this.row.isSelected = true;
+    this.watchlistService.selectedRow.next(this.row);
+    console.log(this.row);
   }
-
 }
